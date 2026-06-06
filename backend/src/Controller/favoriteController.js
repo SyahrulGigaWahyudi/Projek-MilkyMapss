@@ -7,7 +7,7 @@ async function sendQueryResult(res, promise) {
 
 async function getFavorites(req, res) {
   try {
-    await sendQueryResult(res, favoriteModel.findAll());
+    await sendQueryResult(res, favoriteModel.findAll({ ...req.query, user_id: req.user.id }));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -25,6 +25,7 @@ async function getFavoriteById(req, res) {
 
 async function createFavorite(req, res) {
   try {
+    req.body.user_id = req.user.id;
     const result = await favoriteModel.create(req.body);
     res.status(201).json({ id: result[0].insertId });
   } catch (err) {

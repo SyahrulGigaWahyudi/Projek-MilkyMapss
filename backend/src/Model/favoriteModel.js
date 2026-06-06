@@ -1,7 +1,29 @@
 const db = require('../config/databasis');
 
-async function findAll() {
-  return db.query('SELECT * FROM favorites');
+async function findAll(filters = {}) {
+  let query = `
+    SELECT fp.*, f.id as favorite_id, f.user_id
+    FROM favorites f
+    JOIN food_places fp ON f.food_place_id = fp.id
+  `;
+  const params = [];
+  const conditions = [];
+
+  if (filters.user_id) {
+    conditions.push('f.user_id = ?');
+    params.push(filters.user_id);
+  }
+
+  if (filters.food_place_id) {
+    conditions.push('f.food_place_id = ?');
+    params.push(filters.food_place_id);
+  }
+
+  if (conditions.length > 0) {
+    query += ' WHERE ' + conditions.join(' AND ');
+  }
+
+  return db.query(query, params);
 }
 
 async function findById(id) {

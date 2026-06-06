@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const upload = require('../middleware/upload');
+const { authenticate } = require('../middleware/authMiddleware');
 const {
   users,
   customerProfiles,
@@ -15,6 +17,26 @@ const {
   reviewImages,
   foodPlaceTags
 } = require('../Controller');
+
+// Upload image
+router.post('/upload', upload.single('image'), (req, res) => {
+  if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
+  const imageUrl = `/uploads/${req.file.filename}`;
+  res.json({ url: imageUrl, filename: req.file.filename });
+});
+
+// Avatar upload
+router.post('/users/avatar', authenticate, upload.single('avatar'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
+  try {
+    const avatarUrl = `/uploads/${req.file.filename}`;
+    const db = require('../config/databasis');
+    await db.query('UPDATE customer_profiles SET profile_picture = ? WHERE user_id = ?', [avatarUrl, req.user.id]);
+    res.json({ avatar: avatarUrl });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // Users
 router.get('/users', users.getUsers);
@@ -61,7 +83,7 @@ router.delete('/menus/:id', menus.deleteMenu);
 // Reviews
 router.get('/reviews', reviews.getReviews);
 router.get('/reviews/:id', reviews.getReviewById);
-router.post('/reviews', reviews.createReview);
+router.post('/reviews', authenticate, reviews.createReview);
 router.put('/reviews/:id', reviews.updateReview);
 router.delete('/reviews/:id', reviews.deleteReview);
 
@@ -73,11 +95,11 @@ router.put('/tags/:id', tags.updateTag);
 router.delete('/tags/:id', tags.deleteTag);
 
 // Favorites
-router.get('/favorites', favorites.getFavorites);
-router.get('/favorites/:id', favorites.getFavoriteById);
-router.post('/favorites', favorites.createFavorite);
-router.put('/favorites/:id', favorites.updateFavorite);
-router.delete('/favorites/:id', favorites.deleteFavorite);
+router.get('/favorites', authenticate, favorites.getFavorites);
+router.get('/favorites/:id', authenticate, favorites.getFavoriteById);
+router.post('/favorites', authenticate, favorites.createFavorite);
+router.put('/favorites/:id', authenticate, favorites.updateFavorite);
+router.delete('/favorites/:id', authenticate, favorites.deleteFavorite);
 
 // Food place images
 router.get('/food-place-images', foodPlaceImages.getFoodPlaceImages);
@@ -105,4 +127,4 @@ router.get('/food-place-tags', foodPlaceTags.getFoodPlaceTags);
 router.post('/food-place-tags', foodPlaceTags.createFoodPlaceTag);
 router.delete('/food-place-tags/:food_place_id/:tag_id', foodPlaceTags.deleteFoodPlaceTag);
 
-module.exports = router;
+module.exports = router;

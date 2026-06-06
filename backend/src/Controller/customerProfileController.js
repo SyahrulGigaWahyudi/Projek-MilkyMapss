@@ -34,7 +34,7 @@ async function createCustomerProfile(req, res) {
 
 async function updateCustomerProfile(req, res) {
   try {
-    const result = await customerProfileModel.update(req.params.id, req.body);
+    const result = await customerProfileModel.updateByUserId(req.params.id, req.body);
     if (result[0].affectedRows === 0) return res.status(404).json({ message: 'Customer profile not found' });
     res.json({ updated: true });
   } catch (err) {

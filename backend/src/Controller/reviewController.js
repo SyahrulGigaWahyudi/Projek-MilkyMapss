@@ -7,7 +7,7 @@ async function sendQueryResult(res, promise) {
 
 async function getReviews(req, res) {
   try {
-    await sendQueryResult(res, reviewModel.findAll());
+    await sendQueryResult(res, reviewModel.findAll(req.query));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -25,6 +25,7 @@ async function getReviewById(req, res) {
 
 async function createReview(req, res) {
   try {
+    req.body.user_id = req.user.id;
     const result = await reviewModel.create(req.body);
     res.status(201).json({ id: result[0].insertId });
   } catch (err) {

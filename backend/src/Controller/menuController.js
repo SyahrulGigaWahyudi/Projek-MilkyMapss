@@ -7,7 +7,7 @@ async function sendQueryResult(res, promise) {
 
 async function getMenus(req, res) {
   try {
-    await sendQueryResult(res, menuModel.findAll());
+    await sendQueryResult(res, menuModel.findAll(req.query));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

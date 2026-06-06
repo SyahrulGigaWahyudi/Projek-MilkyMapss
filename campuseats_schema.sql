@@ -114,6 +114,7 @@ CREATE TABLE food_places (
     detail_location     VARCHAR(255)        NULL,   -- Contoh: Gedung A Lt. 1, Kantin Pusat
     latitude            DECIMAL(10,8)       NULL,
     longitude           DECIMAL(11,8)       NULL,
+    gmaps_link          VARCHAR(500)        NULL,   -- Link Google Maps (opsional, untuk navigasi akurat)
     phone               VARCHAR(20)         NULL,
     email               VARCHAR(100)        NULL,
     thumbnail           VARCHAR(255)        NULL,

@@ -1,7 +1,20 @@
 const db = require('../config/databasis');
 
-async function findAll() {
-  return db.query('SELECT * FROM menus');
+async function findAll(filters = {}) {
+  let query = 'SELECT * FROM menus';
+  const params = [];
+  const conditions = [];
+
+  if (filters.food_place_id) {
+    conditions.push('food_place_id = ?');
+    params.push(filters.food_place_id);
+  }
+
+  if (conditions.length > 0) {
+    query += ' WHERE ' + conditions.join(' AND ');
+  }
+
+  return db.query(query, params);
 }
 
 async function findById(id) {
