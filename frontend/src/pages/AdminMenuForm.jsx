@@ -10,7 +10,7 @@ export default function AdminMenuForm() {
 
   const [form, setForm] = useState({
     food_place_id: '', name: '', description: '',
-    price: '', image_url: '', is_available: true
+    price: '', image_url: '', is_available: true, category: ''
   });
   const [foodPlaces, setFoodPlaces] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function AdminMenuForm() {
         const d = res.data;
         setForm({ food_place_id: d.food_place_id||'', name: d.name||'',
           description: d.description||'', price: d.price||'',
-          image_url: d.image||'', is_available: d.is_available ?? true });
+          image_url: d.image||'', is_available: d.is_available ?? true, category: d.category||'' });
       }).catch(() => setError('Gagal mengambil data menu')).finally(() => setLoading(false));
     }
   }, [id, isEdit]);
@@ -102,6 +102,19 @@ export default function AdminMenuForm() {
               <span className="material-symbols-outlined mm-form-input-icon">lunch_dining</span>
               <input type="text" value={form.name} onChange={e => setForm({...form, name: e.target.value})}
                 required placeholder="Contoh: Nasi Goreng Spesial" />
+            </div>
+          </div>
+
+          <div className="mm-form-field">
+            <label className="mm-form-label">Kategori</label>
+            <div className="mm-form-input-wrap">
+              <span className="material-symbols-outlined mm-form-input-icon">category</span>
+              <select value={form.category} onChange={e => setForm({...form, category: e.target.value})}>
+                <option value="">— Pilih Kategori —</option>
+                <option value="Makanan">Makanan</option>
+                <option value="Minuman">Minuman</option>
+                <option value="Snack">Snack</option>
+              </select>
             </div>
           </div>
 

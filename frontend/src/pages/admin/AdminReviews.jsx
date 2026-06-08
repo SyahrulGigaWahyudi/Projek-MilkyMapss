@@ -67,8 +67,17 @@ export default function AdminReviews() {
                 <td>{i + 1}</td>
                 <td>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <div className="mm-reviewer-avatar" style={{ width: 28, height: 28, fontSize: 12 }}>
-                      {(r.reviewer_name || 'U').charAt(0).toUpperCase()}
+                    <div className="mm-reviewer-avatar" style={{ width: 28, height: 28, fontSize: 12, overflow: 'hidden', padding: 0 }}>
+                      {r.reviewer_avatar ? (
+                        <img
+                          src={r.reviewer_avatar.startsWith('http') ? r.reviewer_avatar : `http://localhost:3000${r.reviewer_avatar}`}
+                          alt=""
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
+                          onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.textContent = (r.reviewer_name || 'U').charAt(0).toUpperCase(); }}
+                        />
+                      ) : (
+                        (r.reviewer_name || 'U').charAt(0).toUpperCase()
+                      )}
                     </div>
                     <span>{r.reviewer_name || 'Anonim'}</span>
                   </div>
