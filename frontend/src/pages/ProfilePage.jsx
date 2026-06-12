@@ -29,8 +29,8 @@ export default function ProfilePage() {
       alert('Hanya file JPG/PNG yang diperbolehkan.');
       return;
     }
-    if (file.size > 2 * 1024 * 1024) {
-      alert('Ukuran file maksimal 2MB.');
+    if (file.size > 10 * 1024 * 1024) {
+      alert('Ukuran file maksimal 10MB.');
       return;
     }
 

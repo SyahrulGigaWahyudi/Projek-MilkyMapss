@@ -30,8 +30,8 @@ export default function HomePage() {
     }).catch(() => {
       // Fallback kampus jika API belum ada
       const fallback = [
-        { id: 1, name: 'Kampus A STT-NF', address: 'Jl. Situ Babakan, Jagakarsa', latitude: -6.3332, longitude: 106.8204 },
-        { id: 2, name: 'Kampus B STT-NF', address: 'Jl. Lenteng Agung Raya', latitude: -6.3226, longitude: 106.8296 },
+        { id: 1, name: 'Kampus A STT-NF', address: 'Jl. Situ Indah, Kelapa Dua, Depok', latitude: -6.3332, longitude: 106.8204 },
+        { id: 2, name: 'Kampus B STT-NF', address: 'Jl. Lenteng Agung Raya, Jagakarsa, Jakarta Selatan', latitude: -6.3226, longitude: 106.8296 },
       ];
       setCampuses(fallback);
       setSelectedCampus(fallback[0]);
