@@ -59,11 +59,18 @@ export default function HomePage() {
             <span className="material-symbols-outlined text-primary">waving_hand</span>
           </div>
           <div className="mm-topbar-actions">
-            <button className="mm-icon-btn">
-              <span className="material-symbols-outlined">notifications</span>
-            </button>
-            <div className="mm-avatar-sm" onClick={() => navigate('/profile')}>
-              {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
+            <div className="mm-avatar-sm" onClick={() => navigate('/profile')}
+              style={{ overflow: 'hidden', padding: 0, cursor: 'pointer' }}>
+              {user?.profile_picture ? (
+                <img
+                  src={user.profile_picture.startsWith('http') ? user.profile_picture : `http://localhost:3000${user.profile_picture}`}
+                  alt=""
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+              ) : (
+                user?.full_name?.charAt(0)?.toUpperCase() || 'U'
+              )}
             </div>
           </div>
         </header>

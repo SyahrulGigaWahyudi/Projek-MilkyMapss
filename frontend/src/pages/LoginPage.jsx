@@ -78,7 +78,6 @@ export default function LoginPage() {
           <div className="mm-field">
             <div className="mm-field-label-row">
               <label htmlFor="password">Password</label>
-              <a href="#" className="mm-link-sm">Lupa password?</a>
             </div>
             <div className="mm-input-wrap">
               <span className="material-symbols-outlined mm-input-icon">lock</span>
