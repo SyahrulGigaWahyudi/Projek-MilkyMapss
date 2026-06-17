@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getFoodPlaceById, createFoodPlace, updateFoodPlace, getCampuses } from '../services/api';
+import { getFoodPlaceById, createFoodPlace, updateFoodPlace, getCampuses, uploadImage } from '../services/api';
 import { AdminLayout } from './admin/AdminDashboard';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -55,6 +55,9 @@ export default function AdminFoodPlaceForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     getCampuses().then(res => setCampuses(res.data)).catch(() => {});
@@ -277,20 +280,71 @@ export default function AdminFoodPlaceForm() {
           </div>
 
           <div className="mm-form-field">
-            <label className="mm-form-label">URL Gambar Tempat Makan</label>
-            <div className="mm-form-input-wrap">
-              <span className="material-symbols-outlined mm-form-input-icon">link</span>
-              <input type="url" value={form.image_url}
-                onChange={e => setForm({...form, image_url: e.target.value})}
-                placeholder="https://contoh.com/gambar.jpg" />
+            <label className="mm-form-label">Foto Tempat Makan</label>
+            <div
+              className="mm-image-upload-area"
+              onClick={() => fileInputRef.current?.click()}
+              style={{ cursor: 'pointer', border: '2px dashed var(--border, #ddd)', borderRadius: 12, padding: '24px 16px', textAlign: 'center', background: 'var(--bg-card, #fafafa)', transition: 'border-color 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = '#FF5F00'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border, #ddd)'}
+            >
+              {uploading ? (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+                  <span className="mm-btn-spinner" style={{ width: 28, height: 28 }}></span>
+                  <span style={{ color: 'var(--text-s)', fontSize: '0.85rem' }}>Mengupload...</span>
+                </div>
+              ) : (previewUrl || form.image_url) ? (
+                <div style={{ position: 'relative' }}>
+                  <img
+                    src={previewUrl || (form.image_url.startsWith('/uploads') ? `http://localhost:3000${form.image_url}` : form.image_url)}
+                    alt="Preview"
+                    style={{ maxHeight: 180, maxWidth: '100%', borderRadius: 8, objectFit: 'cover' }}
+                    onError={e => { e.target.style.display='none'; }}
+                  />
+                  <p style={{ marginTop: 8, fontSize: '0.8rem', color: 'var(--text-s)' }}>Klik untuk ganti foto</p>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, color: 'var(--text-s)' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 40, color: '#FF5F00' }}>cloud_upload</span>
+                  <span style={{ fontWeight: 500 }}>Klik untuk upload foto</span>
+                  <span style={{ fontSize: '0.8rem' }}>JPG, PNG — Maks. 5MB</span>
+                </div>
+              )}
             </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/png, image/jpeg, image/jpg, image/webp"
+              style={{ display: 'none' }}
+              onChange={async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                if (file.size > 5 * 1024 * 1024) {
+                  setError('Ukuran file maksimal 5MB.');
+                  return;
+                }
+                // Preview
+                const reader = new FileReader();
+                reader.onload = (ev) => setPreviewUrl(ev.target.result);
+                reader.readAsDataURL(file);
+                // Upload
+                setUploading(true); setError('');
+                try {
+                  const fd = new FormData();
+                  fd.append('image', file);
+                  const res = await uploadImage(fd);
+                  setForm(prev => ({ ...prev, image_url: res.data.url }));
+                  setPreviewUrl(null);
+                } catch (err) {
+                  setError('Gagal mengupload gambar. Coba lagi.');
+                  setPreviewUrl(null);
+                } finally {
+                  setUploading(false);
+                  e.target.value = '';
+                }
+              }}
+            />
           </div>
-
-          {form.image_url && (
-            <div className="mm-form-preview">
-              <img src={form.image_url} alt="Preview" onError={e => e.target.style.display='none'} />
-            </div>
-          )}
         </div>
 
         {/* Footer */}

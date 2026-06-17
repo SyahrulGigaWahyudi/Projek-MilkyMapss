@@ -50,4 +50,9 @@ export const uploadAvatar = (formData) => API.post('/users/avatar', formData, {
   headers: { 'Content-Type': 'multipart/form-data' }
 });
 
+// Image upload (general)
+export const uploadImage = (formData) => API.post('/upload', formData, {
+  headers: { 'Content-Type': 'multipart/form-data' }
+});
+
 export default API;

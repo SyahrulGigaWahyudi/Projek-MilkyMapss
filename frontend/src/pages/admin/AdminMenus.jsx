@@ -49,17 +49,18 @@ export default function AdminMenus() {
       <div className="mm-admin-table-wrap">
         <table className="mm-admin-table">
           <thead>
-            <tr><th>No</th><th>Nama Menu</th><th>Kategori</th><th>Harga</th><th>Status</th><th>Aksi</th></tr>
+            <tr><th>No</th><th>Nama Menu</th><th>Tempat Makan</th><th>Kategori</th><th>Harga</th><th>Status</th><th>Aksi</th></tr>
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={6} className="mm-table-loading">Memuat data...</td></tr>
+              <tr><td colSpan={7} className="mm-table-loading">Memuat data...</td></tr>
             ) : filtered.length === 0 ? (
-              <tr><td colSpan={6} className="mm-table-loading">Tidak ada data.</td></tr>
+              <tr><td colSpan={7} className="mm-table-loading">Tidak ada data.</td></tr>
             ) : filtered.map((m, i) => (
               <tr key={m.id}>
                 <td>{i + 1}</td>
                 <td><strong>{m.name}</strong></td>
+                <td style={{ color: 'var(--text-s)', fontSize: '0.85rem' }}>{m.food_place_name || '–'}</td>
                 <td><span className="mm-menu-tag">{m.category || '–'}</span></td>
                 <td className="mm-menu-price">Rp{Number(m.price || 0).toLocaleString('id-ID')}</td>
                 <td>

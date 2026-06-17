@@ -1,12 +1,12 @@
 const db = require('../config/databasis');
 
 async function findAll(filters = {}) {
-  let query = 'SELECT * FROM menus';
+  let query = 'SELECT m.*, fp.name AS food_place_name FROM menus m LEFT JOIN food_places fp ON m.food_place_id = fp.id';
   const params = [];
   const conditions = [];
 
   if (filters.food_place_id) {
-    conditions.push('food_place_id = ?');
+    conditions.push('m.food_place_id = ?');
     params.push(filters.food_place_id);
   }
 

@@ -3,6 +3,7 @@ const db = require('../config/databasis');
 async function findAll(filters = {}) {
   let query = `
     SELECT fp.*, 
+    cl.name AS campus_name,
     IF(fp.opening_time IS NOT NULL AND fp.closing_time IS NOT NULL,
       IF(fp.closing_time < fp.opening_time, 
         CURRENT_TIME() >= fp.opening_time OR CURRENT_TIME() <= fp.closing_time, 
@@ -18,10 +19,7 @@ async function findAll(filters = {}) {
   
   query += ` FROM food_places fp`;
   query += ` LEFT JOIN menus m ON m.food_place_id = fp.id`;
-  
-  if (filters.campus_location_id) {
-    query += ` JOIN campus_locations cl ON fp.campus_location_id = cl.id`;
-  }
+  query += ` LEFT JOIN campus_locations cl ON fp.campus_location_id = cl.id`;
   const params = [];
   const conditions = [];
 
