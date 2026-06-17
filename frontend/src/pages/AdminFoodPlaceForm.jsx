@@ -296,7 +296,7 @@ export default function AdminFoodPlaceForm() {
               ) : (previewUrl || form.image_url) ? (
                 <div style={{ position: 'relative' }}>
                   <img
-                    src={previewUrl || (form.image_url.startsWith('/uploads') ? `http://localhost:3000${form.image_url}` : form.image_url)}
+                    src={previewUrl || (form.image_url.startsWith('/uploads') ? `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}${form.image_url}` : form.image_url)}
                     alt="Preview"
                     style={{ maxHeight: 180, maxWidth: '100%', borderRadius: 8, objectFit: 'cover' }}
                     onError={e => { e.target.style.display='none'; }}

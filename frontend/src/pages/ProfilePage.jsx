@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { uploadAvatar } from '../services/api';
 import SideNav from '../components/SideNav';
 
-const API_BASE = baseURL;
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export default function ProfilePage() {
   const { user, setUser } = useAuth();
@@ -29,8 +29,8 @@ export default function ProfilePage() {
       alert('Hanya file JPG/PNG yang diperbolehkan.');
       return;
     }
-    if (file.size > 10 * 1024 * 1024) {
-      alert('Ukuran file maksimal 10MB.');
+    if (file.size > 2 * 1024 * 1024) {
+      alert('Ukuran file maksimal 2MB.');
       return;
     }
 

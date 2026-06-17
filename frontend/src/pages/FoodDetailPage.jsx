@@ -276,7 +276,7 @@ export default function FoodDetailPage() {
                       <div className="mm-reviewer-avatar" style={{ overflow: 'hidden', padding: 0 }}>
                         {rev.reviewer_avatar ? (
                           <img 
-                            src={rev.reviewer_avatar.startsWith('http') ? rev.reviewer_avatar : `${import.meta.env.VITE_API_URL}${rev.reviewer_avatar}`}
+                            src={rev.reviewer_avatar.startsWith('http') ? rev.reviewer_avatar : `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}${rev.reviewer_avatar}`}
                             alt="" 
                             style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
                             onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.textContent = rev.reviewer_name?.charAt(0)?.toUpperCase() || 'U'; }}

@@ -1,35 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const upload = require('../middleware/upload');
+const { uploadFood, uploadAvatar } = require('../config/cloudinary');
 const { authenticate } = require('../middleware/authMiddleware');
 const {
-  users,
-  customerProfiles,
-  campusLocations,
-  categories,
-  foodPlaces,
-  menus,
-  reviews,
-  tags,
-  favorites,
-  foodPlaceImages,
-  operatingHours,
-  reviewImages,
-  foodPlaceTags
+  users, customerProfiles, campusLocations, categories,
+  foodPlaces, menus, reviews, tags, favorites,
+  foodPlaceImages, operatingHours, reviewImages, foodPlaceTags
 } = require('../Controller');
 
-// Upload image
-router.post('/upload', upload.single('image'), (req, res) => {
+// Upload gambar tempat makan (Cloudinary)
+router.post('/upload', uploadFood.single('image'), (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
-  const imageUrl = `/uploads/${req.file.filename}`;
-  res.json({ url: imageUrl, filename: req.file.filename });
+  res.json({ url: req.file.path, filename: req.file.filename });
 });
 
-// Avatar upload
-router.post('/users/avatar', authenticate, upload.single('avatar'), async (req, res) => {
+// Upload avatar profil (Cloudinary)
+router.post('/users/avatar', authenticate, uploadAvatar.single('avatar'), async (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
   try {
-    const avatarUrl = `/uploads/${req.file.filename}`;
+    const avatarUrl = req.file.path; // URL Cloudinary
     const db = require('../config/databasis');
     await db.query('UPDATE customer_profiles SET profile_picture = ? WHERE user_id = ?', [avatarUrl, req.user.id]);
     res.json({ avatar: avatarUrl });
@@ -127,4 +116,4 @@ router.get('/food-place-tags', foodPlaceTags.getFoodPlaceTags);
 router.post('/food-place-tags', foodPlaceTags.createFoodPlaceTag);
 router.delete('/food-place-tags/:food_place_id/:tag_id', foodPlaceTags.deleteFoodPlaceTag);
 
-module.exports = router;
+module.exports = router;
