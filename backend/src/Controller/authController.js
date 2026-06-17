@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const db = require('../config/databasis');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'milkymaps_secret_key_2026';
+const JWT_SECRET = process.env.JWT_SECRET || 'rahasia_jwt_milkymaps';
 const JWT_EXPIRES = '7d';
 
 // POST /api/auth/register

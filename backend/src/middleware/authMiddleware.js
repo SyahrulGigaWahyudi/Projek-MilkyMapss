@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'milkymaps_secret_key_2026';
+const JWT_SECRET = process.env.JWT_SECRET || 'rahasia_jwt_milkymaps';
 
 function authenticate(req, res, next) {
   const authHeader = req.headers['authorization'];
