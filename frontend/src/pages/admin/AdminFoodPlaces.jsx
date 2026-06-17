@@ -57,6 +57,7 @@ export default function AdminFoodPlaces() {
               <th>No</th>
               <th>Nama</th>
               <th>Alamat</th>
+              <th>Kampus Terdekat</th>
               <th>Rating</th>
               <th>Ulasan</th>
               <th>Aksi</th>
@@ -64,14 +65,15 @@ export default function AdminFoodPlaces() {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={6} className="mm-table-loading">Memuat data...</td></tr>
+              <tr><td colSpan={7} className="mm-table-loading">Memuat data...</td></tr>
             ) : filtered.length === 0 ? (
-              <tr><td colSpan={6} className="mm-table-loading">Tidak ada data.</td></tr>
+              <tr><td colSpan={7} className="mm-table-loading">Tidak ada data.</td></tr>
             ) : filtered.map((p, i) => (
               <tr key={p.id}>
                 <td>{i + 1}</td>
                 <td><strong>{p.name}</strong></td>
                 <td>{p.detail_location || '–'}</td>
+                <td><span className="mm-campus-badge-sm" style={{ fontSize: '0.75rem', padding: '2px 8px' }}>{p.campus_name?.replace(/^Kampus\s*/i, '') || '–'}</span></td>
                 <td>
                   <div className="mm-rating-badge" style={{ display: 'inline-flex' }}>
                     <span className="material-symbols-outlined star-sm">star</span>
