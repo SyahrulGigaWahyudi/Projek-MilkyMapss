@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const db = require('../config/databasis');
-const { sendWelcomeEmail } = require('../config/emailService');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'milkymaps_secret_key_2026';
 const JWT_EXPIRES = '7d';
