@@ -6,6 +6,6 @@ const { authenticate } = require('../middleware/authMiddleware');
 router.post('/register', register);
 router.post('/login', login);
 router.get('/me', authenticate, getMe);
-// Forgot/reset password routes removed
+
 
 module.exports = router;
