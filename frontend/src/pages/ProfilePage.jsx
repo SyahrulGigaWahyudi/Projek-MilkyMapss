@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { uploadAvatar } from '../services/api';
 import SideNav from '../components/SideNav';
 
-const API_BASE = 'http://localhost:3000';
+const API_BASE = baseURL;
 
 export default function ProfilePage() {
   const { user, setUser } = useAuth();

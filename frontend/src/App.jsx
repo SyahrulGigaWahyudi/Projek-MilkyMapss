@@ -50,6 +50,7 @@ function App() {
           {/* Guest only */}
           <Route path="/login" element={<GuestRoute><LoginPage /></GuestRoute>} />
           <Route path="/register" element={<GuestRoute><RegisterPage /></GuestRoute>} />
+          {/* Forgot/Reset password pages removed */}
 
           {/* User routes */}
           <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />

@@ -116,7 +116,6 @@ export default function LoginPage() {
           <div className="mm-field">
             <div className="mm-field-label-row">
               <label htmlFor="password">Password</label>
-              <a href="#" className="mm-link-sm" onClick={(e) => e.preventDefault()}>Lupa password?</a>
             </div>
             <div className={`mm-input-wrap ${touched.password && form.password ? 'mm-input-valid' : ''} ${touched.password && !form.password ? 'mm-input-error' : ''}`}>
               <span className="material-symbols-outlined mm-input-icon">lock</span>

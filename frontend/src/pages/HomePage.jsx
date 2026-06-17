@@ -30,8 +30,8 @@ export default function HomePage() {
     }).catch(() => {
       // Fallback kampus jika API belum ada
       const fallback = [
-        { id: 1, name: 'Kampus A STT-NF', address: 'Jl. Situ Indah, Kelapa Dua, Depok', latitude: -6.3332, longitude: 106.8204 },
-        { id: 2, name: 'Kampus B STT-NF', address: 'Jl. Lenteng Agung Raya, Jagakarsa, Jakarta Selatan', latitude: -6.3226, longitude: 106.8296 },
+        { id: 1, name: 'Kampus A STT-NF', address: 'Jl. Situ Indah , kelapa Dua Depok', latitude: -6.3332, longitude: 106.8204 },
+        { id: 2, name: 'Kampus B STT-NF', address: 'Jl. Lenteng Agung Raya', latitude: -6.3226, longitude: 106.8296 },
       ];
       setCampuses(fallback);
       setSelectedCampus(fallback[0]);
@@ -63,7 +63,7 @@ export default function HomePage() {
               style={{ overflow: 'hidden', padding: 0, cursor: 'pointer' }}>
               {user?.profile_picture ? (
                 <img
-                  src={user.profile_picture.startsWith('http') ? user.profile_picture : `http://localhost:3000${user.profile_picture}`}
+                  src={user.profile_picture.startsWith('http') ? user.profile_picture : `${import.meta.env.VITE_API_URL}${user.profile_picture}`}
                   alt=""
                   style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
                   onError={(e) => { e.target.style.display = 'none'; }}
