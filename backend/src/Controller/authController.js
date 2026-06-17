@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const db = require('../config/databasis');
+const { sendWelcomeEmail } = require('../config/emailService');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'milkymaps_secret_key_2026';
 const JWT_EXPIRES = '7d';
@@ -118,5 +120,7 @@ async function getMe(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
+// Password reset endpoints removed
 
 module.exports = { register, login, getMe };

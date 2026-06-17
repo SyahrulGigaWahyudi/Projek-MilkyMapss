@@ -11,9 +11,15 @@ export default function LoginPage() {
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [touched, setTouched] = useState({ email: false, password: false });
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!form.email.trim() || !form.password.trim()) {
+      setError('Email dan password tidak boleh kosong.');
+      return;
+    }
     setError('');
     setLoading(true);
     try {
@@ -29,8 +35,11 @@ export default function LoginPage() {
         setLoading(false);
         return;
       }
+      setSuccess(true);
       loginUser(token, user);
-      navigate(user.role === 'admin' ? '/admin' : '/home');
+      setTimeout(() => {
+        navigate(user.role === 'admin' ? '/admin' : '/home');
+      }, 500);
     } catch (err) {
       setError(err.response?.data?.message || 'Login gagal. Periksa kembali email dan password.');
     } finally {
@@ -40,7 +49,7 @@ export default function LoginPage() {
 
   return (
     <div className="mm-auth-bg">
-      <div className="mm-auth-card">
+      <div className={`mm-auth-card ${success ? 'mm-auth-success' : ''}`}>
         {/* Header */}
         <div className="mm-auth-header">
           <div className="mm-auth-logo">
@@ -52,26 +61,55 @@ export default function LoginPage() {
 
         {/* Tabs */}
         <div className="mm-auth-tabs">
-          <button className={`mm-tab-btn ${tab === 'mahasiswa' ? 'active' : ''}`} onClick={() => setTab('mahasiswa')}>
-            Mahasiswa
+          <button 
+            type="button"
+            className={`mm-tab-btn ${tab === 'mahasiswa' ? 'active' : ''}`} 
+            onClick={() => {
+              setTab('mahasiswa');
+              setError('');
+            }}
+          >
+            <span className="material-symbols-outlined">school</span>
+            <span>Mahasiswa</span>
           </button>
-          <button className={`mm-tab-btn ${tab === 'admin' ? 'active' : ''}`} onClick={() => setTab('admin')}>
-            Admin
+          <button 
+            type="button"
+            className={`mm-tab-btn ${tab === 'admin' ? 'active' : ''}`} 
+            onClick={() => {
+              setTab('admin');
+              setError('');
+            }}
+          >
+            <span className="material-symbols-outlined">admin_panel_settings</span>
+            <span>Admin</span>
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="mm-auth-form">
-          {error && <div className="mm-alert mm-alert-error">{error}</div>}
+        <form onSubmit={handleSubmit} className="mm-auth-form" noValidate>
+          {error && (
+            <div className="mm-alert mm-alert-error mm-alert-animated">
+              <span className="material-symbols-outlined mm-alert-icon">error</span>
+              <span>{error}</span>
+            </div>
+          )}
 
           <div className="mm-field">
             <label htmlFor="email">Email / Username</label>
-            <div className="mm-input-wrap">
+            <div className={`mm-input-wrap ${touched.email && form.email ? 'mm-input-valid' : ''} ${touched.email && !form.email ? 'mm-input-error' : ''}`}>
               <span className="material-symbols-outlined mm-input-icon">mail</span>
               <input
-                id="email" type="text" placeholder="Masukkan email atau username"
-                value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required
+                id="email" 
+                type="text" 
+                placeholder="Masukkan email atau username"
+                value={form.email} 
+                onChange={e => setForm({ ...form, email: e.target.value })}
+                onBlur={() => setTouched({ ...touched, email: true })}
+                required
+                disabled={loading}
+                aria-label="Email atau Username"
               />
+              {touched.email && form.email && <span className="material-symbols-outlined mm-input-check">done</span>}
             </div>
           </div>
 
@@ -79,25 +117,54 @@ export default function LoginPage() {
             <div className="mm-field-label-row">
               <label htmlFor="password">Password</label>
             </div>
-            <div className="mm-input-wrap">
+            <div className={`mm-input-wrap ${touched.password && form.password ? 'mm-input-valid' : ''} ${touched.password && !form.password ? 'mm-input-error' : ''}`}>
               <span className="material-symbols-outlined mm-input-icon">lock</span>
               <input
-                id="password" type={showPass ? 'text' : 'password'} placeholder="Masukkan password"
-                value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required
+                id="password" 
+                type={showPass ? 'text' : 'password'} 
+                placeholder="Masukkan password"
+                value={form.password} 
+                onChange={e => setForm({ ...form, password: e.target.value })}
+                onBlur={() => setTouched({ ...touched, password: true })}
+                required
+                disabled={loading}
+                aria-label="Password"
               />
-              <button type="button" className="mm-input-toggle" onClick={() => setShowPass(!showPass)}>
+              <button 
+                type="button" 
+                className="mm-input-toggle" 
+                onClick={() => setShowPass(!showPass)}
+                aria-label={showPass ? 'Sembunyikan password' : 'Tampilkan password'}
+              >
                 <span className="material-symbols-outlined">{showPass ? 'visibility_off' : 'visibility'}</span>
               </button>
+              {touched.password && form.password && <span className="material-symbols-outlined mm-input-check">done</span>}
             </div>
           </div>
 
-          <button type="submit" className="mm-btn-primary w-100" disabled={loading}>
-            {loading ? <span className="mm-btn-spinner"></span> : 'Masuk'}
+          <button 
+            type="submit" 
+            className="mm-btn-primary mm-btn-lg" 
+            disabled={loading || success}
+          >
+            {loading ? (
+              <>
+                <span className="mm-btn-spinner"></span>
+                <span>Memproses...</span>
+              </>
+            ) : success ? (
+              <>
+                <span className="material-symbols-outlined">done_all</span>
+                <span>Login Berhasil!</span>
+              </>
+            ) : (
+              'Masuk'
+            )}
           </button>
         </form>
 
         <div className="mm-auth-footer">
-          Belum punya akun? <Link to="/register" className="mm-link">Daftar</Link>
+          <p>Belum punya akun? <Link to="/register" className="mm-link">Daftar sekarang</Link></p>
         </div>
       </div>
     </div>

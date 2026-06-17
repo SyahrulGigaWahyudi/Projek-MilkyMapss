@@ -63,7 +63,7 @@ export default function HomePage() {
               style={{ overflow: 'hidden', padding: 0, cursor: 'pointer' }}>
               {user?.profile_picture ? (
                 <img
-                  src={user.profile_picture.startsWith('http') ? user.profile_picture : `http://localhost:3000${user.profile_picture}`}
+                  src={user.profile_picture.startsWith('http') ? user.profile_picture : `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}${user.profile_picture}`}
                   alt=""
                   style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
                   onError={(e) => { e.target.style.display = 'none'; }}

@@ -306,19 +306,36 @@ body {
   margin: 0;
 }
 .mm-tab-btn {
-  flex: 1; padding: 0.5rem 1rem;
+  flex: 1; 
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
   border: none;
   background: transparent;
-  font-size: 14px; font-weight: 600;
+  font-size: 14px; 
+  font-weight: 600;
   color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.mm-tab-btn .material-symbols-outlined {
+  font-size: 20px;
+  transition: transform var(--transition);
+}
+.mm-tab-btn:hover {
+  color: var(--primary);
+  background: rgba(255,95,0,0.05);
 }
 .mm-tab-btn.active {
   background: var(--surface-white);
   color: var(--primary);
   box-shadow: var(--shadow-sm);
+}
+.mm-tab-btn.active .material-symbols-outlined {
+  transform: scale(1.15);
 }
 .mm-auth-form { padding: 1.5rem 2rem; display: flex; flex-direction: column; gap: 1rem; }
 .mm-auth-footer {
@@ -326,6 +343,17 @@ body {
   padding: 0 2rem 2rem;
   font-size: 14px;
   color: var(--text-secondary);
+}
+.mm-auth-footer p {
+  margin: 0;
+}
+
+/* Enhanced Auth Card with Success State */
+.mm-auth-card {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.mm-auth-card.mm-auth-success {
+  box-shadow: 0 15px 40px -10px rgba(16, 185, 129, 0.2);
 }
 
 /* ============================================================
@@ -338,6 +366,7 @@ body {
   position: relative;
   display: flex;
   align-items: center;
+  transition: all var(--transition);
 }
 .mm-input-icon {
   position: absolute;
@@ -345,11 +374,20 @@ body {
   color: var(--text-secondary);
   font-size: 20px !important;
   pointer-events: none;
+  transition: color var(--transition);
+}
+.mm-input-check {
+  position: absolute;
+  right: 12px;
+  color: var(--success);
+  font-size: 20px !important;
+  pointer-events: none;
+  animation: slideInScale 0.3s ease;
 }
 .mm-input-wrap input, .mm-input-wrap select {
   width: 100%;
   padding: 0.75rem 1rem 0.75rem 2.75rem;
-  border: 1px solid var(--border-soft);
+  border: 1.5px solid var(--border-soft);
   border-radius: var(--radius-sm);
   background: var(--surface);
   font-family: var(--font);
@@ -360,13 +398,53 @@ body {
 }
 .mm-input-wrap input:focus, .mm-input-wrap select:focus {
   border-color: var(--primary);
+  background: var(--surface-white);
   box-shadow: 0 0 0 3px rgba(255,95,0,0.1);
 }
+.mm-input-wrap input:disabled {
+  background: var(--surface-low);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+.mm-input-wrap.mm-input-valid input {
+  border-color: var(--success);
+  padding-right: 2.5rem;
+}
+.mm-input-wrap.mm-input-valid input:focus {
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+.mm-input-wrap.mm-input-valid .mm-input-icon {
+  color: var(--success);
+}
+.mm-input-wrap.mm-input-error input {
+  border-color: var(--error);
+  padding-right: 2.5rem;
+}
+.mm-input-wrap.mm-input-error input:focus {
+  box-shadow: 0 0 0 3px rgba(186, 26, 26, 0.1);
+}
+.mm-input-wrap.mm-input-error .mm-input-icon {
+  color: var(--error);
+}
 .mm-input-toggle {
-  position: absolute; right: 10px;
-  background: none; border: none;
-  color: var(--text-secondary); cursor: pointer;
-  display: flex; align-items: center;
+  position: absolute; 
+  right: 10px;
+  background: none; 
+  border: none;
+  color: var(--text-secondary); 
+  cursor: pointer;
+  display: flex; 
+  align-items: center;
+  transition: all var(--transition);
+  padding: 4px;
+  border-radius: 4px;
+}
+.mm-input-toggle:hover {
+  color: var(--primary);
+  background: rgba(255,95,0,0.1);
+}
+.mm-input-toggle .material-symbols-outlined {
+  font-size: 20px;
 }
 .mm-textarea {
   width: 100%;
@@ -396,14 +474,50 @@ body {
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-sm);
   font-family: var(--font);
-  font-size: 14px; font-weight: 600;
+  font-size: 14px; 
+  font-weight: 600;
   cursor: pointer;
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  transition: all var(--transition);
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 6px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
 }
-.mm-btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
-.mm-btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-.mm-btn-primary.sm { padding: 0.5rem 1rem; font-size: 13px; }
+.mm-btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.2);
+  transition: left 0.3s ease;
+}
+.mm-btn-primary:hover::before {
+  left: 100%;
+}
+.mm-btn-primary:hover { 
+  background: var(--primary-dark); 
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255,95,0,0.3);
+}
+.mm-btn-primary:disabled { 
+  opacity: 0.6; 
+  cursor: not-allowed; 
+  transform: none;
+}
+.mm-btn-primary.sm { 
+  padding: 0.5rem 1rem; 
+  font-size: 13px; 
+}
+.mm-btn-primary.mm-btn-lg {
+  padding: 0.9rem 2rem;
+  font-size: 15px;
+  font-weight: 700;
+  width: 100%;
+}
 
 .mm-btn-outline {
   background: transparent;
@@ -445,7 +559,11 @@ body {
 .mm-alert {
   padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
-  font-size: 14px; font-weight: 500;
+  font-size: 14px; 
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .mm-alert-error {
   background: var(--error-light);
@@ -455,6 +573,13 @@ body {
 .mm-alert-success {
   background: #d1fae5;
   color: #065f46;
+}
+.mm-alert-icon {
+  font-size: 20px !important;
+  flex-shrink: 0;
+}
+.mm-alert-animated {
+  animation: slideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ============================================================
@@ -992,6 +1117,37 @@ body {
 @keyframes skeleton {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+@keyframes slideInScale {
+  from { 
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes slideDown {
+  from { 
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.mm-loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* ============================================================
