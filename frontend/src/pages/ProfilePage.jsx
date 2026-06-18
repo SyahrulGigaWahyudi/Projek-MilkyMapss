@@ -149,7 +149,7 @@ export default function ProfilePage() {
                     <span className="material-symbols-outlined mm-profile-menu-arrow">chevron_right</span>
                   </button>
                 ))}
-                <button className="mm-profile-menu-item" onClick={handleLogout} style={{ marginTop: '1rem', color: '#dc3545' }}>
+                <button className="mm-profile-menu-item d-md-none" onClick={handleLogout} style={{ marginTop: '1rem', color: '#dc3545' }}>
                   <div className="mm-profile-menu-left">
                     <div className="mm-profile-menu-icon" style={{ background: 'rgba(220, 53, 69, 0.1)' }}>
                       <span className="material-symbols-outlined">logout</span>

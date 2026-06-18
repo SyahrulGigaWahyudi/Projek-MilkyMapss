@@ -52,11 +52,6 @@ function HeroSection() {
               <img src={heroMap} alt="MilkyMaps - Peta tempat makan kampus" className="lp-map-img" style={{ borderRadius: "16px" }} />
               <div className="lp-map-overlay"></div>
 
-              {/* Center Pin */}
-              <div className="lp-center-pin">
-                <div className="lp-pin-label">Kampus B</div>
-                <span className="material-symbols-outlined lp-pin-icon">location_on</span>
-              </div>
             </div>
           </div>
         </div>
