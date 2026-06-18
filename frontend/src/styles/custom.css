@@ -724,9 +724,19 @@ body {
 .mm-explore-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1.25rem;
   overflow-y: auto;
+}
+.mm-explore-list-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface-bg);
+  padding: 1.25rem 1.25rem 0.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--border-soft);
+}
   border-right: 1px solid var(--border-soft);
 }
 .mm-explore-map { height: 100%; overflow: hidden; }
@@ -761,7 +771,7 @@ body {
 .mm-result-count { font-size: 13px; color: var(--text-secondary); margin: 0; }
 .mm-result-count strong { color: var(--on-surface); }
 
-.mm-place-list { display: flex; flex-direction: column; gap: 12px; }
+.mm-place-list { padding: 0.5rem 1.25rem 1.25rem 1.25rem; display: flex; flex-direction: column; gap: 12px; }
 .mm-place-card {
   background: var(--surface-white);
   border: 1.5px solid var(--border-soft);
@@ -2401,7 +2411,12 @@ body {
     height: auto !important;
     max-height: none !important;
     overflow-y: auto !important;
+  }
+  .mm-explore-list-header {
     padding: 0.75rem !important;
+  }
+  .mm-place-list {
+    padding: 0 0.75rem 0.75rem 0.75rem !important;
   }
 
   .mm-explore-map {

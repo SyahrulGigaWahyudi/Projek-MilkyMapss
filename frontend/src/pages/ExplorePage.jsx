@@ -145,24 +145,26 @@ export default function ExplorePage() {
         <div className="mm-explore-layout">
           {/* Left: List */}
           <div className="mm-explore-list">
-            <div className="mm-search-box">
-              <span className="material-symbols-outlined">search</span>
-              <input placeholder="Cari tempat makan atau menu..." value={search}
-                onChange={e => setSearch(e.target.value)} />
-            </div>
-            <div className="mm-filter-chips">
-              {SORT_OPTIONS.map(opt => (
-                <button key={opt.value}
-                  className={`mm-chip ${sort === opt.value ? 'active' : ''}`}
-                  onClick={() => setSort(opt.value)}>
-                  {opt.label}
-                </button>
-              ))}
-            </div>
+            <div className="mm-explore-list-header">
+              <div className="mm-search-box">
+                <span className="material-symbols-outlined">search</span>
+                <input placeholder="Cari tempat makan atau menu..." value={search}
+                  onChange={e => setSearch(e.target.value)} />
+              </div>
+              <div className="mm-filter-chips">
+                {SORT_OPTIONS.map(opt => (
+                  <button key={opt.value}
+                    className={`mm-chip ${sort === opt.value ? 'active' : ''}`}
+                    onClick={() => setSort(opt.value)}>
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
 
-            <p className="mm-result-count">
-              <strong>{filtered.length}</strong> tempat makan ditemukan
-            </p>
+              <p className="mm-result-count">
+                <strong>{filtered.length}</strong> tempat makan ditemukan
+              </p>
+            </div>
 
             <div className="mm-place-list d-flex flex-column gap-3">
               {loading ? (

@@ -112,6 +112,27 @@ export default function FoodDetailPage() {
 
   const isAdminView = window.location.pathname.startsWith('/admin');
 
+  const isCurrentlyOpen = (openingTime, closingTime) => {
+    if (!openingTime || !closingTime) return false;
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMin = now.getMinutes();
+    
+    const [openH, openM] = openingTime.split(':').map(Number);
+    const [closeH, closeM] = closingTime.split(':').map(Number);
+    
+    const currentTotal = currentHour * 60 + currentMin;
+    const openTotal = openH * 60 + openM;
+    const closeTotal = closeH * 60 + closeM;
+    
+    if (closeTotal < openTotal) {
+      return currentTotal >= openTotal || currentTotal <= closeTotal;
+    }
+    return currentTotal >= openTotal && currentTotal <= closeTotal;
+  };
+
+  const isPlaceOpen = place ? isCurrentlyOpen(place.opening_time, place.closing_time) : false;
+
   const content = (
     <>
       {!isAdminView && (
@@ -141,9 +162,9 @@ export default function FoodDetailPage() {
                       <span className="material-symbols-outlined">restaurant</span>
                     </div>}
                 <div className="mm-detail-hero-badges">
-                  <span className={`mm-status-badge ${place.is_open ? 'open' : 'closed'}`}>
+                  <span className={`mm-status-badge ${isPlaceOpen ? 'open' : 'closed'}`}>
                     <span className="mm-status-dot"></span>
-                    {place.is_open ? 'Buka' : 'Tutup'}
+                    {isPlaceOpen ? 'Buka' : 'Tutup'}
                     {place.opening_time && place.closing_time && (
                       <span style={{ fontWeight: 'normal', opacity: 0.9, marginLeft: 4 }}>
                         ({place.opening_time.slice(0,5)} - {place.closing_time.slice(0,5)})
