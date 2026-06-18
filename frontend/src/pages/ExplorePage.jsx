@@ -237,7 +237,7 @@ export default function ExplorePage() {
               {/* Campus marker */}
               {selectedCampus?.latitude && (
                 <>
-                  <Circle center={selectedCampus.latitude ? [Number(selectedCampus.latitude), Number(selectedCampus.longitude)] : mapCenter} radius={500} pathOptions={{ color: '#ff5f00', fillColor: '#ff5f00', fillOpacity: 0.05 }} />
+                  <Circle center={selectedCampus.latitude ? [Number(selectedCampus.latitude), Number(selectedCampus.longitude)] : mapCenter} radius={400} pathOptions={{ color: '#ff5f00', fillColor: '#ff5f00', fillOpacity: 0.05 }} />
                   <Marker position={selectedCampus.latitude ? [Number(selectedCampus.latitude), Number(selectedCampus.longitude)] : mapCenter} icon={campusIcon}>
                     <Popup>{selectedCampus.name}</Popup>
                   </Marker>
