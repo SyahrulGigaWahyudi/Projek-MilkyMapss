@@ -55,7 +55,7 @@ export default function HomePage() {
       <main className="mm-main-content">
         {/* Top bar */}
         <header className="mm-topbar">
-          <div className="mm-topbar-actions">
+          <div className="mm-topbar-actions" style={{ marginLeft: 'auto' }}>
             <div className="mm-avatar-sm" onClick={() => navigate('/profile')}
               style={{ overflow: 'hidden', padding: 0, cursor: 'pointer' }}>
               {user?.profile_picture ? (

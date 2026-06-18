@@ -47,45 +47,15 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Right Visual */}
           <div className="lp-hero-visual">
             <div className="lp-map-wrapper">
               <img src={heroMap} alt="MilkyMaps - Peta tempat makan kampus" className="lp-map-img" style={{ borderRadius: "16px" }} />
               <div className="lp-map-overlay"></div>
 
-              {/* Floating Card 1 - Top */}
-              <div className="lp-float-card lp-float-1">
-                <div className="lp-float-icon">
-                  <span className="material-symbols-outlined">restaurant</span>
-                </div>
-                <div>
-                  <h4>Warteg Kharisma</h4>
-                  <p>
-                    <span className="material-symbols-outlined" style={{ fontSize: 13 }}>directions_walk</span>
-                    3 min (250m)
-                  </p>
-                </div>
-              </div>
-
               {/* Center Pin */}
               <div className="lp-center-pin">
                 <div className="lp-pin-label">Kampus B</div>
                 <span className="material-symbols-outlined lp-pin-icon">location_on</span>
-              </div>
-
-              {/* Floating Card 2 - Bottom */}
-              <div className="lp-float-card lp-float-2">
-                <div style={{ flex: 1 }}>
-                  <div className="lp-float-rating">
-                    <span className="material-symbols-outlined" style={{ fontSize: 15, color: '#FFD400' }}>star</span>
-                    <strong>4.8</strong>
-                  </div>
-                  <h4>Ayam Geprek Bensu</h4>
-                  <p>Rp 15.000 - Rp 25.000</p>
-                </div>
-                <div className="lp-float-nav">
-                  <span className="material-symbols-outlined">directions</span>
-                </div>
               </div>
             </div>
           </div>

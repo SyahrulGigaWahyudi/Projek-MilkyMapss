@@ -7,11 +7,16 @@ import SideNav from '../components/SideNav';
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export default function ProfilePage() {
-  const { user, setUser } = useAuth();
+  const { user, setUser, logoutUser } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate('/login');
+  };
 
   const API_URL = user?.profile_picture?.startsWith('http') 
     ? user.profile_picture 
@@ -144,6 +149,14 @@ export default function ProfilePage() {
                     <span className="material-symbols-outlined mm-profile-menu-arrow">chevron_right</span>
                   </button>
                 ))}
+                <button className="mm-profile-menu-item" onClick={handleLogout} style={{ marginTop: '1rem', color: '#dc3545' }}>
+                  <div className="mm-profile-menu-left">
+                    <div className="mm-profile-menu-icon" style={{ background: 'rgba(220, 53, 69, 0.1)' }}>
+                      <span className="material-symbols-outlined">logout</span>
+                    </div>
+                    <span className="mm-profile-menu-label">Logout</span>
+                  </div>
+                </button>
               </div>
             </div>
           </div>

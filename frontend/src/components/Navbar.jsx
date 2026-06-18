@@ -27,6 +27,14 @@ function Navbar() {
     setActiveHash('#features');
   };
 
+  const handleBeranda = (e) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setActiveHash('');
+    }
+  };
+
   const isBerandaActive = location.pathname === '/' && activeHash !== '#features';
   const isTentangActive = activeHash === '#features';
 
@@ -38,7 +46,7 @@ function Navbar() {
           <Link
             to="/"
             className={`lp-nav-link ${isBerandaActive ? 'active' : ''}`}
-            onClick={() => setActiveHash('')}>
+            onClick={handleBeranda}>
             Beranda
           </Link>
           <a

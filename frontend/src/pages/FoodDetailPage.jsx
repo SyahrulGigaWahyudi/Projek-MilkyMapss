@@ -186,9 +186,12 @@ export default function FoodDetailPage() {
                 <div className="mm-detail-actions">
                   {(place.gmaps_link || (place.latitude && place.longitude)) && (
                     <button className="mm-btn-primary" onClick={() => {
-                      const url = place.gmaps_link
+                      let url = place.gmaps_link
                         ? place.gmaps_link
                         : `https://www.google.com/maps/dir/?api=1&destination=${place.latitude},${place.longitude}`;
+                      if (url && !url.startsWith('http')) {
+                        url = 'https://' + url;
+                      }
                       window.open(url, '_blank');
                     }}>
                       <span className="material-symbols-outlined">navigation</span>
