@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import heroMap from '../assets/hero-map.png';
+import heroMap from '../assets/hero-illustration.svg';
 
 function HeroSection() {
   return (
@@ -50,7 +50,7 @@ function HeroSection() {
           {/* Right Visual */}
           <div className="lp-hero-visual">
             <div className="lp-map-wrapper">
-              <img src={heroMap} alt="MilkyMaps - Peta tempat makan kampus" className="lp-map-img" />
+              <img src={heroMap} alt="MilkyMaps - Peta tempat makan kampus" className="lp-map-img" style={{ borderRadius: "16px" }} />
               <div className="lp-map-overlay"></div>
 
               {/* Floating Card 1 - Top */}

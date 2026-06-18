@@ -2348,3 +2348,210 @@ body {
   animation: spin 0.7s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   MOBILE RESPONSIVE FIX
+   ============================================================ */
+
+/* ── Layout dasar mobile ── */
+@media (max-width: 767px) {
+  /* Sidebar disembunyikan, konten mulai dari kiri */
+  .mm-main-content {
+    margin-left: 0 !important;
+    padding-bottom: 72px; /* ruang untuk bottom nav */
+  }
+
+  .mm-page-content {
+    padding: 1rem !important;
+  }
+
+  /* Topbar mobile */
+  .mm-topbar {
+    padding: 0 1rem !important;
+    height: 56px;
+  }
+
+  .mm-topbar-title {
+    font-size: 16px !important;
+  }
+
+  /* Campus badge di topbar */
+  .mm-campus-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .mm-campus-badge select {
+    font-size: 12px;
+    max-width: 100px;
+  }
+
+  /* ── Explore page ── */
+  .mm-explore-layout {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    flex-direction: column !important;
+  }
+
+  .mm-explore-list {
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: visible !important;
+    padding: 0.75rem !important;
+  }
+
+  .mm-explore-map {
+    height: 250px !important;
+    order: -1; /* peta di atas, list di bawah */
+  }
+
+  /* Card tempat makan di explore */
+  .mm-place-card {
+    flex-direction: row !important;
+  }
+
+  .mm-place-card-img {
+    width: 100px !important;
+    min-width: 100px !important;
+    height: auto !important;
+    min-height: 90px !important;
+  }
+
+  .mm-place-card-body {
+    padding: 0.6rem 0.75rem !important;
+  }
+
+  .mm-place-card-header h3 {
+    font-size: 13px !important;
+  }
+
+  .mm-place-card-actions {
+    flex-wrap: wrap !important;
+    gap: 5px !important;
+  }
+
+  .mm-btn-primary.sm, .mm-btn-outline.sm {
+    font-size: 11px !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+
+  /* ── Home page ── */
+  .mm-campus-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  .mm-food-cards-row {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  .mm-food-card-img {
+    height: 160px !important;
+  }
+
+  /* ── Food detail page ── */
+  .mm-detail-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .mm-detail-hero {
+    height: 220px !important;
+    border-radius: var(--radius) !important;
+  }
+
+  .mm-detail-actions {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  .mm-detail-actions .mm-btn-primary,
+  .mm-detail-actions .mm-btn-outline {
+    flex: 1 !important;
+    min-width: 0 !important;
+    font-size: 13px !important;
+    padding: 0.6rem 0.5rem !important;
+    white-space: nowrap !important;
+  }
+
+  .mm-menu-item {
+    padding: 0.6rem 0 !important;
+  }
+
+  /* ── Profile page ── */
+  .mm-profile-layout {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* ── Favorites page ── */
+  .mm-favorites-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Search box ── */
+  .mm-search-box input {
+    font-size: 14px !important;
+  }
+
+  /* ── Filter chips ── */
+  .mm-filter-chips {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  .mm-chip {
+    font-size: 12px !important;
+    padding: 4px 10px !important;
+  }
+
+  /* ── Rating badge ── */
+  .mm-rating-badge {
+    font-size: 12px !important;
+    padding: 2px 6px !important;
+  }
+
+  /* ── Back button ── */
+  .mm-back-btn {
+    font-size: 13px !important;
+    padding: 0.4rem 0.75rem !important;
+  }
+
+  /* ── Modal ── */
+  .mm-modal, .mm-review-modal {
+    width: 95% !important;
+    padding: 1.25rem !important;
+  }
+
+  /* ── Review ulasan ── */
+  .mm-review-card {
+    padding: 0.75rem !important;
+  }
+
+  /* ── Result count ── */
+  .mm-result-count {
+    font-size: 13px !important;
+    margin: 0.5rem 0 !important;
+  }
+}
+
+/* ── Extra small (HP kecil < 400px) ── */
+@media (max-width: 400px) {
+  .mm-place-card-img {
+    width: 85px !important;
+    min-width: 85px !important;
+  }
+
+  .mm-topbar-title {
+    font-size: 15px !important;
+  }
+
+  .mm-detail-actions {
+    flex-direction: column !important;
+  }
+
+  .mm-detail-actions .mm-btn-primary,
+  .mm-detail-actions .mm-btn-outline {
+    width: 100% !important;
+  }
+}
