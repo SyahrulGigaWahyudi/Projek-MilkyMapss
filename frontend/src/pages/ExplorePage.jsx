@@ -144,7 +144,7 @@ export default function ExplorePage() {
 
         <div className="mm-explore-layout">
           {/* Left: List */}
-          <div className="mm-explore-list">
+          <div className="mm-explore-content">
             <div className="mm-explore-list-header">
               <div className="mm-search-box">
                 <span className="material-symbols-outlined">search</span>
@@ -166,7 +166,8 @@ export default function ExplorePage() {
               </p>
             </div>
 
-            <div className="mm-place-list d-flex flex-column gap-3">
+            <div className="mm-explore-list">
+              <div className="mm-place-list d-flex flex-column gap-3">
               {loading ? (
                 [1,2,3].map(i => <div key={i} className="mm-skeleton-card tall"></div>)
               ) : filtered.length === 0 ? (
@@ -227,6 +228,7 @@ export default function ExplorePage() {
                   </div>
                 );
               })}
+              </div>
             </div>
           </div>
 

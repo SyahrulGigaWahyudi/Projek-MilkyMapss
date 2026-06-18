@@ -737,8 +737,6 @@ body {
   gap: 0.75rem;
   border-bottom: 1px solid var(--border-soft);
 }
-  border-right: 1px solid var(--border-soft);
-}
 .mm-explore-map { height: 100%; overflow: hidden; }
 .mm-search-box {
   display: flex; align-items: center; gap: 10px;
@@ -2406,6 +2404,13 @@ body {
     overflow: hidden !important;
   }
 
+  .mm-explore-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 !important;
+    height: auto !important;
+    overflow: hidden !important;
+  }
   .mm-explore-list {
     flex: 1 !important;
     height: auto !important;
