@@ -721,10 +721,18 @@ body {
   height: calc(100vh - var(--topbar-h));
   overflow: hidden;
 }
+.mm-explore-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-right: 1px solid var(--border-soft);
+}
 .mm-explore-list {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  flex: 1;
 }
 .mm-explore-list-header {
   position: sticky;
