@@ -56,14 +56,20 @@ export default function ExplorePage() {
     getCampuses().then(res => {
       const list = res.data;
       setCampuses(list);
-      if (list.length > 0) setSelectedCampus(list[0]);
+      if (list.length > 0) {
+        const savedId = localStorage.getItem('selectedCampusId');
+        const saved = list.find(c => c.id.toString() === savedId);
+        setSelectedCampus(saved || list[0]);
+      }
     }).catch(() => {
       const fallback = [
         { id: 1, name: 'Kampus A STT-NF', address: 'Jl. Situ Babakan', latitude: -6.3627739,  longitude: 106.8444527 },
         { id: 2, name: 'Kampus B STT-NF', address: 'Jl. Lenteng Agung', latitude: -6.352945 , longitude: 106.832631 },
       ];
       setCampuses(fallback);
-      setSelectedCampus(fallback[0]);
+      const savedId = localStorage.getItem('selectedCampusId');
+      const saved = fallback.find(c => c.id.toString() === savedId);
+      setSelectedCampus(saved || fallback[0]);
     });
 
   }, []);
@@ -128,6 +134,7 @@ export default function ExplorePage() {
               <select value={selectedCampus?.id || ''} onChange={e => {
                 const c = campuses.find(x => x.id == e.target.value);
                 setSelectedCampus(c);
+                if (c) localStorage.setItem('selectedCampusId', c.id);
               }}>
                 {campuses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
               </select>

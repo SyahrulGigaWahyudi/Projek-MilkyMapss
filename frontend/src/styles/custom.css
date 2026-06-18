@@ -2389,19 +2389,24 @@ body {
   /* ── Explore page ── */
   .mm-explore-layout {
     grid-template-columns: 1fr !important;
-    height: auto !important;
+    display: flex !important;
     flex-direction: column !important;
+    height: calc(100vh - 116px) !important;
+    height: calc(100dvh - 116px) !important;
+    overflow: hidden !important;
   }
 
   .mm-explore-list {
+    flex: 1 !important;
     height: auto !important;
     max-height: none !important;
-    overflow-y: visible !important;
+    overflow-y: auto !important;
     padding: 0.75rem !important;
   }
 
   .mm-explore-map {
-    height: 250px !important;
+    height: 220px !important;
+    flex-shrink: 0 !important;
     order: -1; /* peta di atas, list di bawah */
   }
 

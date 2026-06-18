@@ -26,7 +26,11 @@ export default function HomePage() {
   useEffect(() => {
     getCampuses().then(res => {
       setCampuses(res.data);
-      if (res.data.length > 0) setSelectedCampus(res.data[0]);
+      if (res.data.length > 0) {
+        const savedId = localStorage.getItem('selectedCampusId');
+        const saved = res.data.find(c => c.id.toString() === savedId);
+        setSelectedCampus(saved || res.data[0]);
+      }
     }).catch(() => {
       // Fallback kampus jika API belum ada
       const fallback = [
@@ -34,7 +38,9 @@ export default function HomePage() {
         { id: 2, name: 'Kampus B STT-NF', address: 'Jl. Lenteng Agung Raya', latitude: -6.3226, longitude: 106.8296 },
       ];
       setCampuses(fallback);
-      setSelectedCampus(fallback[0]);
+      const savedId = localStorage.getItem('selectedCampusId');
+      const saved = fallback.find(c => c.id.toString() === savedId);
+      setSelectedCampus(saved || fallback[0]);
     });
   }, []);
 
@@ -86,7 +92,10 @@ export default function HomePage() {
                 <div key={campus.id} className="col-12 col-md-6">
                   <button
                     className={`mm-campus-card w-100 ${selectedCampus?.id === campus.id ? 'active' : ''}`}
-                    onClick={() => setSelectedCampus(campus)}
+                    onClick={() => {
+                      setSelectedCampus(campus);
+                      localStorage.setItem('selectedCampusId', campus.id);
+                    }}
                   >
                     {selectedCampus?.id === campus.id && (
                       <div className="mm-campus-check">
