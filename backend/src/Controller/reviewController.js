@@ -1,6 +1,6 @@
 const reviewModel = require('../Model/reviewModel');
 const db = require('../config/databasis');
-const { censorText } = require('../utils/ProfanityFilter');
+const { censorText } = require('../utils/Profanityfilter');
 
 async function sendQueryResult(res, promise) {
   const [rows] = await promise;
