@@ -1,5 +1,6 @@
 const reviewModel = require('../Model/reviewModel');
 const db = require('../config/databasis');
+const { censorText } = require('../utils/profanityFilter');
 
 async function sendQueryResult(res, promise) {
   const [rows] = await promise;
@@ -38,9 +39,17 @@ async function getReviewById(req, res) {
 async function createReview(req, res) {
   try {
     req.body.user_id = req.user.id;
+
+    let wasFiltered = false;
+    if (req.body.comment) {
+      const filterResult = censorText(req.body.comment);
+      req.body.comment = filterResult.text;
+      wasFiltered = filterResult.wasFiltered;
+    }
+
     const result = await reviewModel.create(req.body);
     await recalcRating(req.body.food_place_id);
-    res.status(201).json({ id: result[0].insertId });
+    res.status(201).json({ id: result[0].insertId, filtered: wasFiltered });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -53,10 +62,17 @@ async function updateReview(req, res) {
     if (!rows.length) return res.status(404).json({ message: 'Review not found' });
     const foodPlaceId = rows[0].food_place_id;
 
+    let wasFiltered = false;
+    if (req.body.comment) {
+      const filterResult = censorText(req.body.comment);
+      req.body.comment = filterResult.text;
+      wasFiltered = filterResult.wasFiltered;
+    }
+
     const result = await reviewModel.update(req.params.id, req.body);
     if (result[0].affectedRows === 0) return res.status(404).json({ message: 'Review not found' });
     await recalcRating(foodPlaceId);
-    res.json({ updated: true });
+    res.json({ updated: true, filtered: wasFiltered });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

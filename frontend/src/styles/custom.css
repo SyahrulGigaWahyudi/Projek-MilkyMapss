@@ -361,6 +361,7 @@ body {
    ============================================================ */
 .mm-field { display: flex; flex-direction: column; gap: 6px; }
 .mm-field label { font-size: 13px; font-weight: 600; color: var(--on-surface); }
+.mm-field-hint { font-size: 12px; color: var(--on-surface-muted, #888); margin: 0; }
 .mm-field-label-row { display: flex; justify-content: space-between; align-items: center; }
 .mm-input-wrap {
   position: relative;
@@ -721,13 +722,29 @@ body {
   height: calc(100vh - var(--topbar-h));
   overflow: hidden;
 }
+.mm-explore-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-right: 1px solid var(--border-soft);
+}
 .mm-explore-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1.25rem;
   overflow-y: auto;
-  border-right: 1px solid var(--border-soft);
+  flex: 1;
+}
+.mm-explore-list-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface-bg);
+  padding: 1.25rem 1.25rem 0.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--border-soft);
 }
 .mm-explore-map { height: 100%; overflow: hidden; }
 .mm-search-box {
@@ -761,7 +778,7 @@ body {
 .mm-result-count { font-size: 13px; color: var(--text-secondary); margin: 0; }
 .mm-result-count strong { color: var(--on-surface); }
 
-.mm-place-list { display: flex; flex-direction: column; gap: 12px; }
+.mm-place-list { padding: 0.5rem 1.25rem 1.25rem 1.25rem; display: flex; flex-direction: column; gap: 12px; }
 .mm-place-card {
   background: var(--surface-white);
   border: 1.5px solid var(--border-soft);
@@ -2389,19 +2406,36 @@ body {
   /* ── Explore page ── */
   .mm-explore-layout {
     grid-template-columns: 1fr !important;
-    height: auto !important;
+    display: flex !important;
     flex-direction: column !important;
+    height: calc(100vh - 116px) !important;
+    height: calc(100dvh - 116px) !important;
+    overflow: hidden !important;
   }
 
+  .mm-explore-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 !important;
+    height: auto !important;
+    overflow: hidden !important;
+  }
   .mm-explore-list {
+    flex: 1 !important;
     height: auto !important;
     max-height: none !important;
-    overflow-y: visible !important;
+    overflow-y: auto !important;
+  }
+  .mm-explore-list-header {
     padding: 0.75rem !important;
+  }
+  .mm-place-list {
+    padding: 0 0.75rem 0.75rem 0.75rem !important;
   }
 
   .mm-explore-map {
-    height: 250px !important;
+    height: 220px !important;
+    flex-shrink: 0 !important;
     order: -1; /* peta di atas, list di bawah */
   }
 
