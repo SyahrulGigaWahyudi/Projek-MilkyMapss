@@ -17,13 +17,8 @@ export default function WriteReviewPage() {
     if (rating === 0) { setError('Pilih rating terlebih dahulu.'); return; }
     setLoading(true);
     try {
-      const res = await createReview({ food_place_id: id, rating, comment });
-      navigate(`/food/${id}`, {
-        state: {
-          reviewSubmitted: true,
-          commentFiltered: res?.data?.filtered || false,
-        },
-      });
+      await createReview({ food_place_id: id, rating, comment });
+      navigate(`/food/${id}`, { state: { reviewSubmitted: true } });
     } catch (err) {
       setError(err.response?.data?.message || 'Gagal mengirim ulasan.');
     } finally { setLoading(false); }
@@ -73,9 +68,6 @@ export default function WriteReviewPage() {
                   placeholder="Ceritakan pengalamanmu di sini..."
                   value={comment} onChange={e => setComment(e.target.value)}
                   className="mm-textarea" />
-                <p className="mm-field-hint">
-                  Kata kasar atau pelecehan akan otomatis disensor.
-                </p>
               </div>
 
               <button type="submit" className="mm-btn-primary w-100" disabled={loading}>
