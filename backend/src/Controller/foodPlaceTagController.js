@@ -25,6 +25,8 @@ async function createFoodPlaceTag(req, res) {
 async function deleteFoodPlaceTag(req, res) {
   try {
     const { food_place_id, tag_id } = req.params;
+    const [rows] = await foodPlaceTagModel.findByIds(food_place_id, tag_id);
+    if (!rows.length) return res.status(404).json({ message: 'Food place tag relation not found' });
     const result = await foodPlaceTagModel.remove(food_place_id, tag_id);
     if (result[0].affectedRows === 0) return res.status(404).json({ message: 'Food place tag relation not found' });
     res.json({ deleted: true });

@@ -37,6 +37,7 @@ async function getReviewById(req, res) {
 
 async function createReview(req, res) {
   try {
+    const {food_place_id} = req.body;
     req.body.user_id = req.user.id;
     const result = await reviewModel.create(req.body);
     await recalcRating(req.body.food_place_id);
