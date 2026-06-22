@@ -70,7 +70,7 @@ export default function AdminMenuForm() {
       {error && <div className="mm-toast error"><span className="material-symbols-outlined">error</span>{error}</div>}
       {success && <div className="mm-toast success"><span className="material-symbols-outlined">check_circle</span>{success}</div>}
 
-      <form onSubmit={handleSubmit} style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <form onSubmit={handleSubmit} style={{ maxWidth: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {/* Left - Menu Info */}
         <div className="mm-form-section">
           <div className="mm-form-section-header">
