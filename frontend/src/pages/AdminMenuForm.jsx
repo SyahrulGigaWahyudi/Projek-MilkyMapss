@@ -70,7 +70,7 @@ export default function AdminMenuForm() {
       {error && <div className="mm-toast error"><span className="material-symbols-outlined">error</span>{error}</div>}
       {success && <div className="mm-toast success"><span className="material-symbols-outlined">check_circle</span>{success}</div>}
 
-      <form onSubmit={handleSubmit} className="mm-form-grid">
+      <form onSubmit={handleSubmit} style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {/* Left - Menu Info */}
         <div className="mm-form-section">
           <div className="mm-form-section-header">
@@ -115,23 +115,6 @@ export default function AdminMenuForm() {
                 <option value="Minuman">Minuman</option>
                 <option value="Snack">Snack</option>
               </select>
-            </div>
-          </div>
-
-          <div className="mm-form-field">
-            <label className="mm-form-label">Deskripsi</label>
-            <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})}
-              rows="3" placeholder="Bahan utama, porsi, level kepedasan..." />
-          </div>
-        </div>
-
-        {/* Right - Price & Media */}
-        <div className="mm-form-section">
-          <div className="mm-form-section-header">
-            <div className="mm-form-section-icon accent"><span className="material-symbols-outlined">payments</span></div>
-            <div>
-              <h3>Harga</h3>
-              <p>Harga jual menu</p>
             </div>
           </div>
 
