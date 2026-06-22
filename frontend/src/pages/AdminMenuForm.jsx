@@ -130,8 +130,8 @@ export default function AdminMenuForm() {
           <div className="mm-form-section-header">
             <div className="mm-form-section-icon accent"><span className="material-symbols-outlined">payments</span></div>
             <div>
-              <h3>Harga & Media</h3>
-              <p>Harga jual dan foto menu</p>
+              <h3>Harga</h3>
+              <p>Harga jual menu</p>
             </div>
           </div>
 
