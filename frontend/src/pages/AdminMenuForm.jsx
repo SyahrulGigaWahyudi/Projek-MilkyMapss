@@ -151,22 +151,6 @@ export default function AdminMenuForm() {
           </div>
 
           <div className="mm-form-field">
-            <label className="mm-form-label">URL Gambar Menu</label>
-            <div className="mm-form-input-wrap">
-              <span className="material-symbols-outlined mm-form-input-icon">link</span>
-              <input type="url" value={form.image_url}
-                onChange={e => setForm({...form, image_url: e.target.value})}
-                placeholder="https://contoh.com/gambar.jpg" />
-            </div>
-          </div>
-
-          {form.image_url && (
-            <div className="mm-form-preview">
-              <img src={form.image_url} alt="Preview" onError={e => e.target.style.display='none'} />
-            </div>
-          )}
-
-          <div className="mm-form-field">
             <label className="mm-form-toggle-label">
               <div className="mm-toggle-wrap">
                 <input type="checkbox" checked={form.is_available}
