@@ -126,7 +126,7 @@ export default function AdminMenuForm() {
               <span className="mm-form-input-prefix">Rp</span>
               <input type="number" min="0" value={form.price}
                 onChange={e => setForm({...form, price: e.target.value})}
-                required placeholder="15000" className="has-prefix" />
+                required placeholder="12000" className="has-prefix" />
             </div>
             {form.price && (
               <span className="mm-form-hint">{formatRupiah(form.price)}</span>
